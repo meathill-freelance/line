@@ -1,0 +1,11 @@
+/*
+Theme Name:     Line & Plan
+Theme URI:      http: //lineid.com/
+Description:    Child theme of mystile <http://www.woothemes.com/products/mystile/>
+Author:         Meathill
+Author URI:     http: //meathill.com/
+Template:       mystile
+Version:        0.1.0
+*/
+
+@import url(../mystile/style.css);
