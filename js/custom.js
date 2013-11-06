@@ -510,24 +510,6 @@ jQuery(document).ready(function () {
 
 
 /*----------------------------------------------------*/
-/*	Twitter Section
-/*----------------------------------------------------*/
-
-	jQuery('#tweets').tweetMachine('', {
-		backendScript:  'http://demo.fifothemes.com/pixma/ajax/getFromTwitter.php',
-		endpoint: 'statuses/user_timeline',
-		user_name: 'FIFOThemes',
-		include_retweets: true,
-		exclude_replies: false,
-		limit: 1,
-		autoRefresh: false
-	});
-
-
-
-
-
-/*----------------------------------------------------*/
 /*	Tabs Control Section
 /*----------------------------------------------------*/
 
