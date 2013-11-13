@@ -11,8 +11,11 @@
 require(dirname(__FILE__) . '/inc/mustache.php');
 $tpl = new Mustache_Engine();
 
+global $page, $paged;
+$pagenum = $page > 2 || $paged > 2 ? ' | ' . sprintf(__('第 %s 页'), max($paged, $page)) : '';
 $result = array(
-  'theme_url' => $home_url
+  'theme_url' => $home_url,
+  'title' => wp_title('|', FALSE, 'right') . get_bloginfo('name') . $pagenum,
 );
 
 // 公司新闻
