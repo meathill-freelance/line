@@ -8,34 +8,10 @@
  * @since
  */
 
-require(dirname(__FILE__) . '/inc/mustache.php');
+get_header();
+
+require_once(dirname(__FILE__) . '/inc/mustache.php');
 $tpl = new Mustache_Engine();
-
-global $page, $paged;
-$pagenum = $page > 2 || $paged > 2 ? ' | ' . sprintf(__('第 %s 页'), max($paged, $page)) : '';
-$result = array(
-  'theme_url' => $home_url,
-  'title' => wp_title('|', FALSE, 'right') . get_bloginfo('name') . $pagenum,
-);
-
-// 公司新闻
-if (have_posts()) {
-  $blog = array();
-  $count = 0;
-  while (have_posts()) {
-    the_post();
-    $blog[] = array(
-      'title' => the_title_attribute(array('echo' => FALSE)),
-      'link' => apply_filters('the_permalink', get_permalink()),
-      'date' => apply_filters('the_time', get_the_time('Y-m-d'), 'Y-m-d'),
-    );
-    $count ++;
-    if ($count >= 2) {
-      break;
-    }
-  }
-  $result['blog'] = $blog;
-}
 
 // 最新活动
 $args = array(
@@ -64,5 +40,6 @@ $template = dirname(__FILE__) . '/template/index.html';
 $template = file_get_contents($template);
 $template = str_replace('"../', '"{{theme_url}}wp-content/themes/line/', $template);
 
-$home_url = esc_url(home_url('/'));
 echo $tpl->render($template, $result);
+
+get_footer();

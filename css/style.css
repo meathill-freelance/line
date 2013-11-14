@@ -1,8 +1,9 @@
 body {
-    color: #727272;
-    font-family: "Open Sans",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 24px;
+  color: #727272;
+  font-family: "Open Sans",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  overflow-x: hidden;
 }
 
 body.boxed header {
@@ -469,11 +470,11 @@ h2.title {
 
 /* Main Content */
 #main {
-    background-color: #fff;
+  background-color: #fff;
 	padding: 0 0 60px;
 }
 
-.home #main, .home-2 #main, .home-3 #main, .page-services #main, .about #main {
+#main.home, #main.home-2, #main.home-3, #main.page-services, #main.about {
 	padding:0;
 }
 
