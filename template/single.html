@@ -50,12 +50,7 @@
         </div>
         <div class="blog-entry-meta-tags">
           <i class="fa fa-tags"></i>
-          <a href="#">Web Design</a>,
-          <a href="#">Branding</a>
-        </div>
-        <div class="blog-entry-meta-comments">
-          <i class="fa fa-comments"></i>
-          <a href="#" class="blog-entry-meta-comments">3 comments</a>
+          {{{tags}}}
         </div>
       </div>
     </header>
@@ -85,214 +80,61 @@
   <div class="divider"></div>
   <!-- Comments Section Start -->
   <div class="comment-wrapper">
-    <h3 class="title">Comments</h3>
+    <h3 class="title">评论</h3>
 
     <div class="clearfix"></div>
-    <div class="comments-sec">
-      <ol class="commentlist">
-        <li>
-          <div class="comment" id="1">
-            <div class="avatar">
-              <img alt="" src="../img/team/team-member.jpg">
-            </div>
-            <div class="comment-des">
-              <div class="arrow-comment">
-              </div>
-              <div class="comment-by">
-                <strong>Simon Jones</strong><span class="date">July 30, 2013</span><span class="reply"><a href="#"><i
-                class="fa fa-reply"></i> Reply</a></span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-              </p>
-            </div>
-            <div class="clearfix">
-            </div>
-          </div>
-          <ol class="childlist">
-            <li>
-              <div class="comment" id="3">
-                <div class="avatar">
-                  <img alt="" src="../img/team/team-member.jpg">
-                </div>
-                <div class="comment-des">
-                  <div class="arrow-comment">
-                  </div>
-                  <div class="comment-by">
-                    <strong>Admin</strong><span class="date">July 30, 2013</span><span class="reply"><a href="#"><i
-                    class="fa fa-reply"></i> Reply</a></span>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                  </p>
-                </div>
-                <div class="clearfix">
-                </div>
-              </div>
-            </li>
-          </ol>
-          <div class="clearfix">
-          </div>
-        </li>
-        <li>
-          <div class="comment" id="2">
-            <div class="avatar">
-              <img alt="" src="../img/team/team-member.jpg">
-            </div>
-            <div class="comment-des">
-              <div class="arrow-comment">
-              </div>
-              <div class="comment-by">
-                <strong>Loren Simpson</strong><span class="date">July 30, 2013</span><span class="reply"><a href="#"><i
-                class="fa fa-reply"></i> Reply</a></span>
-              </div>
-              <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                deleniti atque corrupti quos dolores et quas molestias excepturi sint
-              </p>
-            </div>
-            <div class="clearfix">
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="comment" id="4">
-            <div class="avatar">
-              <img alt="" src="../img/team/team-member.jpg">
-            </div>
-            <div class="comment-des">
-              <div class="arrow-comment">
-              </div>
-              <div class="comment-by">
-                <strong>Indy Parker</strong><span class="date">July 30, 2013</span><span class="reply"><a href="#"><i
-                class="fa fa-reply"></i> Reply</a></span>
-              </div>
-              <p>
-                Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
-                vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-              </p>
-            </div>
-            <div class="clearfix">
-            </div>
-          </div>
-        </li>
-      </ol>
-    </div>
-    <div class="clearfix">
-    </div>
+    <!-- comments -->
   </div>
-  <!-- Comments Section End -->
-  <div class="divider"></div>
-  <!-- Reply Section Start -->
-  <div class="reply">
-    <h3 class="title">Leave a reply</h3>
 
-    <form class="reply" id="reply">
-      <fieldset>
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <label>Name: <span>*</span></label>
-            <input class="form-control" type="text" value="" required>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <label>Email: <span>*</span></label>
-            <input class="form-control" type="text" value="" required>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <label>Website: </label>
-            <input class="form-control" type="text" value="">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label>Comment: <span>*</span></label>
-            <textarea class="form-control" rows="3" cols="40" required></textarea>
-          </div>
-        </div>
-      </fieldset>
-      <button class="btn-normal btn-color" type="submit">Post Reply</button>
-      <div class="clearfix">
-      </div>
-    </form>
-  </div>
-  <!-- Reply Section End -->
 </div>
 <div class="sidebar col-lg-3 col-md-3 col-sm-4 col-xs-12">
   <!-- Search Widget Start -->
   <div class="widget search-form">
-    <div class="input-group">
-      <input type="text" value="Search..." onfocus="if(this.value=='Search...')this.value='';"
-             onblur="if(this.value=='')this.value='Search...';" class="search-input form-control">
-                      <span class="input-group-btn">
-                      <button type="submit" class="subscribe-btn btn"><i class="fa fa-search"></i></button>
-                      </span>
-    </div>
+    <form action="/">
+      <div class="input-group">
+        <input type="text" placeholder="搜索..." class="search-input form-control" name="s" />
+        <span class="input-group-btn">
+          <button class="btn subscribe-btn"><i class="fa fa-search"></i></button>
+        </span>
+      </div>
+    </form>
     <!-- /input-group -->
   </div>
   <!-- Search Widget End -->
-  <!-- Tab Start -->
-  <div class="widget tabs">
-    <div id="horizontal-tabs">
-      <ul class="tabs">
-        <li id="tab1" class="current">Popular</li>
-        <li id="tab2">Recent</li>
-        <li id="tab3">Comments</li>
-      </ul>
-      <div class="contents">
-        <div class="tabscontent" id="content1" style="display: block;">
-          <ul class="posts">
-            <li>
-              <a href="#"><img class="img-thumbnail recent-post-img" alt="" src="../img/recent-post-img.jpg"></a>
+  <!-- Ads Widget Start -->
+  <div class="widget ads">
+    <h3 class="title">Advertisement</h3>
 
-              <p><a href="#">Lorem Ipsum is simply dummy text.</a></p>
-              <span class="color">27 July 2013</span>
-            </li>
-            <li>
-              <a href="#"><img class="img-thumbnail recent-post-img" alt="" src="../img/recent-post-img.jpg"></a>
-
-              <p><a href="#">Lorem Ipsum is simply dummy text.</a></p>
-              <span class="color">30 July 2013</span>
-            </li>
-          </ul>
-        </div>
-        <div class="tabscontent" id="content2">
-          <ul class="posts">
-            <li>
-              <a href="#"><img class="img-thumbnail recent-post-img" alt="" src="../img/recent-post-img.jpg"></a>
-
-              <p><a href="#">Lorem Ipsum is simply dummy text.</a></p>
-              <span class="color">27 July 2013</span>
-            </li>
-            <li>
-              <a href="#"><img class="img-thumbnail recent-post-img" alt="" src="../img/recent-post-img.jpg"></a>
-
-              <p><a href="#">Lorem Ipsum is simply dummy text.</a></p>
-              <span class="color">30 July 2013</span>
-            </li>
-          </ul>
-        </div>
-        <div class="tabscontent" id="content3">
-          <ul class="posts">
-            <li>
-              <a href="#"><img class="img-thumbnail recent-post-img" alt="" src="../img/recent-post-img.jpg"></a>
-
-              <p><a href="#">Lorem Ipsum is simply dummy text.</a></p>
-              by <span class="color">wptuts+</span>
-            </li>
-            <li>
-              <a href="#"><img class="img-thumbnail recent-post-img" alt="" src="../img/recent-post-img.jpg"></a>
-
-              <p><a href="#">Lorem Ipsum is simply dummy text.</a></p>
-              by <span class="color">wptuts+</span>
-            </li>
-          </ul>
-        </div>
+    <div class="ads-img row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <img class="img-thumbnail" alt="" src="../img/ads-small.jpg">
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <img class="img-thumbnail" alt="" src="../img/ads-small.jpg">
+      </div>
+    </div>
+    <div class="ads-img row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <img class="img-thumbnail" alt="" src="../img/ads-small.jpg">
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <img class="img-thumbnail" alt="" src="../img/ads-small.jpg">
       </div>
     </div>
   </div>
-  <!-- Tab End -->
+  <!-- Ads Widget End -->
+  <!-- Category Widget Start -->
+  <div class="widget category">
+    <h3 class="title">Categories</h3>
+    <ul class="category-list slide">
+      <li><a href="#">Web Design</a></li>
+      <li><a href="#">Graphic Design</a></li>
+      <li><a href="#">Illustration</a></li>
+      <li><a href="#">Logo Design</a></li>
+      <li><a href="#">Wordpress Themes</a></li>
+    </ul>
+  </div>
+  <!-- Category Widget End -->
   <!-- Testimonials Widget Start -->
   <div class="row">
     <div class="testimonials widget">
@@ -365,40 +207,6 @@
       </div>
     </div>
   </div>
-  <!-- Category Widget Start -->
-  <div class="widget category">
-    <h3 class="title">Categories</h3>
-    <ul class="category-list slide">
-      <li><a href="#">Web Design</a></li>
-      <li><a href="#">Graphic Design</a></li>
-      <li><a href="#">Illustration</a></li>
-      <li><a href="#">Logo Design</a></li>
-      <li><a href="#">Wordpress Themes</a></li>
-    </ul>
-  </div>
-  <!-- Category Widget End -->
-  <!-- Ads Widget Start -->
-  <div class="widget ads">
-    <h3 class="title">Advertisement</h3>
-
-    <div class="ads-img row">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <img class="img-thumbnail" alt="" src="../img/ads-small.jpg">
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <img class="img-thumbnail" alt="" src="../img/ads-small.jpg">
-      </div>
-    </div>
-    <div class="ads-img row">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <img class="img-thumbnail" alt="" src="../img/ads-small.jpg">
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <img class="img-thumbnail" alt="" src="../img/ads-small.jpg">
-      </div>
-    </div>
-  </div>
-  <!-- Ads Widget End -->
 </div>
 <!-- Sidebar End -->
 </div>
@@ -407,79 +215,3 @@
 <!-- Main Content end-->
 </div>
 <!-- Content End -->
-<!-- Footer Start -->
-<footer id="footer">
-  <!-- Footer Top Start -->
-  <div class="footer-top">
-    <div class="container">
-      <div class="row">
-        <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-one">
-          <h3>About</h3>
-
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s.
-          </p>
-        </section>
-        <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-two">
-          <h3>Twitter Stream</h3>
-          <ul id="tweets">
-          </ul>
-        </section>
-        <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-three">
-          <h3>Contact Us</h3>
-          <ul class="contact-us">
-            <li>
-              <i class="fa fa-map-marker"></i>
-
-              <p>
-                <strong>Address:</strong> 250 Sher-E- Bangla Road, <br>
-                Khulna, Bangladesh
-              </p>
-            </li>
-            <li>
-              <i class="fa fa-phone"></i>
-
-              <p><strong>Phone:</strong> +880 41 723 272</p>
-            </li>
-            <li>
-              <i class="fa fa-envelope"></i>
-
-              <p><strong>Email:</strong><a href="mailto:info@fifothemes.com">info@fifothemes.com</a></p>
-            </li>
-          </ul>
-        </section>
-        <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-four">
-          <h3>Flickr Photostream</h3>
-          <ul id="flickrfeed" class="thumbs"></ul>
-        </section>
-      </div>
-    </div>
-  </div>
-  <!-- Footer Top End -->
-  <!-- Footer Bottom Start -->
-  <div class="footer-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 "> &copy; Copyright 2013 by <a href="#">Pixma</a>. All Rights
-          Reserved.
-        </div>
-        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 ">
-          <ul class="social social-icons-footer-bottom">
-            <li class="facebook"><a href="#" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i></a>
-            </li>
-            <li class="twitter"><a href="#" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-            <li class="dribbble"><a href="#" data-toggle="tooltip" title="Dribble"><i class="fa fa-dribbble"></i></a>
-            </li>
-            <li class="linkedin"><a href="#" data-toggle="tooltip" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-            </li>
-            <li class="rss"><a href="#" data-toggle="tooltip" title="Rss"><i class="fa fa-rss"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Footer Bottom End -->
-</footer>
-<!-- Scroll To Top -->
-<a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>

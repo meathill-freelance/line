@@ -22,10 +22,10 @@ if (have_posts()) {the_post();
     'excerpt' => apply_filters('the_excerpt', get_the_excerpt()),
     'content' => apply_filters('the_content', $content),
     'category' => get_the_category_list(' <span class="divider">/</span></li><li>'),
-    'tags' => apply_filters('the_tags', get_the_term_list(0, 'post_tag', '', '，'), '', '，', '', 0),
+    'tags' => get_the_tag_list('', '，'),
     'author' => get_the_author(),
     'author_url' => get_author_posts_url(get_the_author_meta('ID')),
-    'author_avatar' => get_avatar(get_the_author_meta('email'), '128'),
+    'author_avatar' => get_avatar(get_the_author_meta('email'), '70'),
     'author_description' => get_the_author_meta('description'),
   );
 }
@@ -37,6 +37,13 @@ $template = file_get_contents($template);
 $template = str_replace('"../', '"{{theme_url}}wp-content/themes/line/', $template);
 
 $home_url = esc_url(home_url('/'));
-echo $tpl->render($template, $blog);
+$html = $tpl->render($template, $blog);
+$html_fragments = explode('<!-- comments -->', $html);
+
+echo $html_fragments[0];
+
+comments_template();
+
+echo $html_fragments[1];
 
 get_footer();

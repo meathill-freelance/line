@@ -742,13 +742,13 @@ h2.title {
     padding: 20px;
 }
 
-.author-content .avatar {
+.author-content div.avatar {
     float: left;
     margin: 0 20px 0 0;
 	
 }
 
-.avatar {
+div.avatar {
 	border: 1px solid #ddd;
 	padding:4px !important;
 	border-radius: 100%;
