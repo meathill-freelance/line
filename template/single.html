@@ -5,14 +5,15 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
-        <h2 class="title">{{category}}</h2>
+        <h2 class="title">{{{category}}}</h2>
       </div>
       <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
         <div class="breadcrumbs pull-right">
           <ul>
+            <li>当前位置：</li>
             <li><a href="/">首页</a></li>
-            <li><a href="#">Blog</a></li>
-            <li>Blog Single Post</li>
+            <li>{{{category}}}</li>
+            <li>{{full_title}}</li>
           </ul>
         </div>
       </div>
@@ -40,12 +41,12 @@
 
       <div class="blog-entry-meta">
         <div class="blog-entry-meta-date">
-          <i class="fa fa-time"></i>
+          <i class="fa fa-clock-o"></i>
           <span class="blog-entry-meta-date">{{date}}</span>
         </div>
         <div class="blog-entry-meta-author">
           <i class="fa fa-user"></i>
-          <a href="#" class="blog-entry-meta-author">John Doe</a>
+          <a href="{{author_url}}" class="blog-entry-meta-author">{{author}}</a>
         </div>
         <div class="blog-entry-meta-tags">
           <i class="fa fa-tags"></i>
@@ -64,21 +65,18 @@
   </article>
   <div class="blog-divider"></div>
   <ul class="pager">
-    <li class="previous"><a href="#">&larr; Older</a></li>
-    <li class="next"><a href="#">Newer &rarr;</a></li>
+    <li class="previous"><a href="#">&larr; 上一篇</a></li>
+    <li class="next"><a href="#">下一篇 &rarr;</a></li>
   </ul>
   <!-- Start About Author -->
   <div class="about-author">
-    <h3 class="title">About The Author</h3>
+    <h3 class="title">关于作者</h3>
 
     <div class="author-content">
-      <div class="avatar"><img alt="" src="../img/fifo-small.jpg"></div>
+      <div class="avatar">{{{author_avatar}}}</div>
       <div class="data">
-        <h4><a href="#">FIFO Themes</a></h4>
-
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        </p>
+        <h4><a href="{{author_url}}">{{author}}</a></h4>
+        <p>{{author_description}}</p>
       </div>
       <!-- End data -->
     </div>
