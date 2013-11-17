@@ -25,13 +25,17 @@ while ($actives->have_posts()) {
   $actives->the_post();
   $content = apply_filters('the_content', $content);
   $result['actives'][] = array(
-    'thumbnail' => get_the_post_thumbnail(),
+    'thumbnail' => get_the_post_thumbnail(null, 'homepage-active'),
     'title' => the_title('', '', FALSE),
     'full_title' => the_title_attribute(array('echo' => FALSE)),
     'link' => apply_filters('the_permalink', get_permalink()),
     'date' => apply_filters('the_time', get_the_time('Y-m-d'), 'Y年m月d日'),
     'excerpt' => apply_filters('the_excerpt', get_the_excerpt()),
   );
+  $count++;
+  if ($count >= 3) {
+    break;
+  }
 }
 
 // 最新产品

@@ -1,18 +1,19 @@
 <?php
 /**
  * Created by PhpStorm.
- * Date: 13-11-14
- * Time: 下午11:38
+ * Date: 13-11-17
+ * Time: 下午10:28
  * @overview 
  * @author Meatill <lujia.zhai@dianjoy.com>
  * @since 
  */
+
 get_header();
 
-$blog = array();
+$page = array();
 if (have_posts()) {the_post();
   $content = get_the_content('继续阅读');
-  $blog = array(
+  $page = array(
     'id' => get_the_ID(),
     'is_featured' => is_sticky() && is_home() && ! is_paged(),
     'class' => join(' ', get_post_class($class, $post_id)),
@@ -31,42 +32,13 @@ if (have_posts()) {the_post();
   );
 }
 
-// 最新活动
-$args = array(
-  'post_type' => 'page',
-  'post_parent' => 2,
-);
-$actives = new WP_Query($args);
-$count = 0;
-$blog['actives'] = array();
-while ($actives->have_posts()) {
-  $actives->the_post();
-  $content = apply_filters('the_content', $content);
-  $blog['actives'][] = array(
-    'thumbnail' => get_the_post_thumbnail(null, 'single-active', array('class' => 'img-thumbnail')),
-    'full_title' => the_title_attribute(array('echo' => FALSE)),
-    'link' => apply_filters('the_permalink', get_permalink()),
-  );
-  $count++;
-  if ($count >= 3) {
-    break;
-  }
-}
-
 require_once(dirname(__FILE__) . '/inc/mustache.php');
 $tpl = new Mustache_Engine();
-$template = dirname(__FILE__) . '/template/single.html';
+$template = dirname(__FILE__) . '/template/page.html';
 $template = file_get_contents($template);
 $template = str_replace('"../', '"{{theme_url}}wp-content/themes/line/', $template);
 
 $home_url = esc_url(home_url('/'));
-$html = $tpl->render($template, $blog);
-$html_fragments = explode('<!-- comments -->', $html);
-
-echo $html_fragments[0];
-
-comments_template();
-
-echo $html_fragments[1];
+echo $tpl->render($template, $page);
 
 get_footer();
