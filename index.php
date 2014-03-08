@@ -16,7 +16,7 @@ $tpl = new Mustache_Engine();
 // 最新活动
 $args = array(
   'post_type' => 'page',
-  'post_parent' => 2,
+  'post_parent' => get_option('woo_active_page'),
 );
 $actives = new WP_Query($args);
 $count = 0;

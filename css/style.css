@@ -1279,6 +1279,10 @@ ul.graph-container {
     border-radius: 2px;
 }
 
+#cn-tabs img {
+  max-width: 100%;
+}
+
 .cn-content {
     
 	overflow:hidden;
@@ -1481,7 +1485,6 @@ span.color {
 
 .social-icons-footer-bottom li i {
     display: inline-block;
-    font-family: FontAwesome;
     font-size: 13px;
     font-style: normal;
     font-variant: normal;
@@ -1562,6 +1565,13 @@ footer .contact-us a {
     color: #666;
     float: left;
     margin: 4px 0 0;
+}
+.contact-us a.btn {
+  color: #666 !important;
+  margin-left: 60px;
+}
+.contact-us li .btn i {
+  margin-right: 6px;
 }
 
 .contact-us p {
