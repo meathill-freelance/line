@@ -13,14 +13,14 @@ function step1(){
       });
 	  
 	  items.each(function(i, el){
-      var angle = i * 40 - 10;
+      var angle = i * 60;
       jQuery(this).css({
-        'transform': 'rotate('+angle+'deg) skew(50deg)'
+        'transform': 'rotate('+angle+'deg) skew(30deg)'
       });
     });
 	
 	anchors.css({
-      'transform': 'skew(-50deg) rotate(-70deg) scale(1)',
+      'transform': 'skew(-30deg) rotate(-60deg) scale(1)',
       'border-radius': '50%',
       'text-align': 'center',
       'padding-top': '2em'
