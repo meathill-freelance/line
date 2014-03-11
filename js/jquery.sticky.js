@@ -37,8 +37,11 @@
         if (scrollTop <= etse) {
           if (s.currentTop !== null) {
             s.stickyElement
-              .css('position', '')
-              .css('top', '');
+              .css({
+                position: '',
+                top: '',
+                'z-index': ''
+              });
             s.stickyElement.parent().removeClass(s.className);
             s.currentTop = null;
           }
@@ -57,8 +60,11 @@
           }
           if (s.currentTop != newTop && fwidth >= 980) {
             s.stickyElement
-              .css('position', 'fixed')
-              .css('top', newTop);
+              .css({
+                position: 'fixed',
+                top: newTop,
+                'z-index': 9999
+              });
 
             if (typeof s.getWidthFrom !== 'undefined') {
               s.stickyElement.css('width', $(s.getWidthFrom).width());

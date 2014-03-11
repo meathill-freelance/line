@@ -5,10 +5,13 @@
     <div class="container">
       <div class="row">
         <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-one">
-          <h3>关于我们</h3>
+          <h3>关注我们</h3>
 
           <p>
-            蓝派是一家创业团队，致力于提供中国最好的个性化定制球衣。我们相信每个人心中都有和兄弟姐妹共同奋斗的梦想，我们想帮大家实现它。
+            <img src="../img/qrcode.jpg" width="150" height="150" />
+          </p>
+          <p>
+            关注我们的微信公众账号，随时了解XLine的最新动态，获取最优价格优惠。
           </p>
         </section>
         <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-two">
@@ -46,8 +49,11 @@
           </ul>
         </section>
         <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-four">
-          <h3>企业风采</h3>
-          <ul id="flickrfeed" class="thumbs"></ul>
+          <h3>采购指南</h3>
+          <ul class="links">
+            <li><a href="/faq"><i class="fa fa-fw fa-question"></i> 常见问题</a></li>
+            <li><a href="/faq"><i class="fa fa-fw fa-list-ol"></i> 购物流程</a></li>
+          </ul>
         </section>
       </div>
     </div>
@@ -63,9 +69,9 @@
           <ul class="social social-icons-footer-bottom">
             <li class="weibo"><a href="http://weibo.com/meathill" data-toggle="tooltip" title="新浪微博"><i class="fa fa-weibo"></i></a></li>
             <li class="renren"><a href="http://www.renren.com/247814854" data-toggle="tooltip" title="人人网"><i class="fa fa-renren"></i></a></li>
-            <li class="wechat"><a href="#" data-toggle="tooltip" title="微信"><i class="icon-wechat"></i></a></li>
             <li class="douban"><a href="http://www.douban.com/people/meathill/" data-toggle="tooltip" title="豆瓣"><i class="icon-douban"></i></a></li>
             <li class="t-qq"><a href="http://t.qq.com/meathill" data-toggle="tooltip" title="腾讯微博"><i class="icon-qq-weibo"></i></a>
+            <li class="wechat"><a href="#wechat-modal" data-toggle="modal" title="微信"><i class="icon-wechat"></i></a></li>
           </ul>
         </div>
       </div>
@@ -73,6 +79,21 @@
   </div>
   <!-- Footer Bottom End -->
 </footer>
+<!-- 微信二维码popup -->
+<div class="modal fade" id="wechat-modal" tabindex="-1" role="dialog" aria-labelledby="wechat-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="wechat-modal-title">微信公众账号</h4>
+      </div>
+      <div class="modal-body">
+        <p><img src="../img/qrcode.jpg" width="100%"></p>
+        <p>关注我们的微信公众账号，随时随地了解XLine的最新动态，还有机会享受最优折扣哦！</p>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Scroll To Top -->
 <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
 <!-- The Scripts -->
@@ -88,7 +109,6 @@
 <script src="../js/jquery.gmap.min.js"></script>
 <script src="../js/circularnav.js"></script>
 <script src="../js/jquery.sticky.js"></script>
-<script src="../js/jflickrfeed.js"></script>
 <script src="//cdn.staticfile.org/imagesloaded/3.0.4/imagesloaded.pkgd.js"></script>
 <script src="//cdn.staticfile.org/waypoints/2.0.3/waypoints.min.js"></script>
 <script src="../js/custom.js"></script>

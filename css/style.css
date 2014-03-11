@@ -99,7 +99,6 @@ a:hover,a:focus {
 /* Header */
 #header .main-header {
     min-height: 86px;
-    z-index: 9999;
     width: 100%;
     position: relative;
 	background:#323B44;
@@ -1556,11 +1555,6 @@ a.scrollup:hover i,a.scrollup:focus i {
     margin-bottom: 5px;
 }
 
-#flickrfeed li {
-	float:left;
-	margin:5px 5px 0 0;
-}
-
 .contact-us {
     margin: 15px 0 0;
     background: url("../img/contact-map.png") no-repeat center bottom;
@@ -1598,6 +1592,11 @@ footer .contact-us a {
     float: left;
     font-weight: 600;
     margin: 0 5px 5px 0;
+}
+
+.links i {
+  color: #727272;
+  margin-right: 10px;
 }
 
 .subscribe-btn {
@@ -2515,7 +2514,7 @@ ol li ol.childlist .comment-des,header nav li,.avatar {
     overflow: hidden;
 }
 
-footer a,.contact-box:hover,#options li a.selected,header .top-bar,header .top-bar a,header .social li:hover i,footer .social li:hover i,.content-box:hover>.content-box-icon i,div.content-box div.content-box-icon:hover,div.content-box div.content-box-icon:hover i,#footer h3,.contact-box:hover h3 {
+footer a,.contact-box:hover,#options li a.selected,header .top-bar,header .top-bar a,.content-box:hover>.content-box-icon i,div.content-box div.content-box-icon:hover,div.content-box div.content-box-icon:hover i,#footer h3,.contact-box:hover h3 {
     color: #fff;
 }
 

@@ -3,20 +3,21 @@
 /*
  * This file is part of Mustache.php.
  *
- * (c) 2013 Justin Hileman
+ * (c) 2014 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 class Mustache_Engine
 {
-    const VERSION        = '2.4.1';
+    const VERSION        = '2.5.1';
     const SPEC_VERSION   = '1.1.2';
     const PRAGMA_FILTERS = 'FILTERS';
         private $templates = array();
         private $templateClassPrefix = '__Mustache_';
-    private $cache = null;
-    private $cacheFileMode = null;
+    private $cache;
+    private $lambdaCache;
+    private $cacheLambdaTemplates = false;
     private $loader;
     private $partialsLoader;
     private $helpers;
@@ -31,10 +32,15 @@ class Mustache_Engine
             $this->templateClassPrefix = $options['template_class_prefix'];
         }
         if (isset($options['cache'])) {
-            $this->cache = $options['cache'];
+            $cache = $options['cache'];
+            if (is_string($cache)) {
+                $mode  = isset($options['cache_file_mode']) ? $options['cache_file_mode'] : null;
+                $cache = new Mustache_Cache_FilesystemCache($cache, $mode);
+            }
+            $this->setCache($cache);
         }
-        if (isset($options['cache_file_mode'])) {
-            $this->cacheFileMode = $options['cache_file_mode'];
+        if (isset($options['cache_lambda_templates'])) {
+            $this->cacheLambdaTemplates = (bool) $options['cache_lambda_templates'];
         }
         if (isset($options['loader'])) {
             $this->setLoader($options['loader']);
@@ -153,6 +159,9 @@ class Mustache_Engine
         if ($logger !== null && !($logger instanceof Mustache_Logger || is_a($logger, 'Psr\\Log\\LoggerInterface'))) {
             throw new Mustache_Exception_InvalidArgumentException('Expected an instance of Mustache_Logger or Psr\\Log\\LoggerInterface.');
         }
+        if ($this->getCache()->getLogger() === null) {
+            $this->getCache()->setLogger($logger);
+        }
         $this->logger = $logger;
     }
     public function getLogger()
@@ -191,6 +200,30 @@ class Mustache_Engine
             $this->compiler = new Mustache_Compiler;
         }
         return $this->compiler;
+    }
+    public function setCache(Mustache_Cache $cache)
+    {
+        if (isset($this->logger) && $cache->getLogger() === null) {
+            $cache->setLogger($this->getLogger());
+        }
+        $this->cache = $cache;
+    }
+    public function getCache()
+    {
+        if (!isset($this->cache)) {
+            $this->setCache(new Mustache_Cache_NoopCache());
+        }
+        return $this->cache;
+    }
+    protected function getLambdaCache()
+    {
+        if ($this->cacheLambdaTemplates) {
+            return $this->getCache();
+        }
+        if (!isset($this->lambdaCache)) {
+            $this->lambdaCache = new Mustache_Cache_NoopCache();
+        }
+        return $this->lambdaCache;
     }
     public function getTemplateClassName($source)
     {
@@ -232,30 +265,19 @@ class Mustache_Engine
         if ($delims !== null) {
             $source = $delims . "\n" . $source;
         }
-        return $this->loadSource($source);
+        return $this->loadSource($source, $this->getLambdaCache());
     }
-    private function loadSource($source)
+    private function loadSource($source, Mustache_Cache $cache = null)
     {
         $className = $this->getTemplateClassName($source);
         if (!isset($this->templates[$className])) {
+            if ($cache === null) {
+                $cache = $this->getCache();
+            }
             if (!class_exists($className, false)) {
-                if ($fileName = $this->getCacheFilename($source)) {
-                    if (!is_file($fileName)) {
-                        $this->log(
-                            Mustache_Logger::DEBUG,
-                            'Writing "{className}" class to template cache: "{fileName}"',
-                            array('className' => $className, 'fileName' => $fileName)
-                        );
-                        $this->writeCacheFile($fileName, $this->compile($source));
-                    }
-                    require_once $fileName;
-                } else {
-                    $this->log(
-                        Mustache_Logger::WARNING,
-                        'Template cache disabled, evaluating "{className}" class at runtime',
-                        array('className' => $className)
-                    );
-                    eval('?>'.$this->compile($source));
+                if (!$this->getCache()->load($className)) {
+                    $compiled = $this->compile($source);
+                    $this->getCache()->cache($className, $compiled);
                 }
             }
             $this->log(
@@ -286,13 +308,73 @@ class Mustache_Engine
         );
         return $this->getCompiler()->compile($source, $tree, $name, isset($this->escape), $this->charset, $this->strictCallables, $this->entityFlags);
     }
-    private function getCacheFilename($source)
+    private function log($level, $message, array $context = array())
     {
-        if ($this->cache) {
-            return sprintf('%s/%s.php', $this->cache, $this->getTemplateClassName($source));
+        if (isset($this->logger)) {
+            $this->logger->log($level, $message, $context);
         }
     }
-    private function writeCacheFile($fileName, $source)
+}
+interface Mustache_Cache
+{
+    public function load($key);
+    public function cache($key, $value);
+}
+abstract class Mustache_Cache_AbstractCache implements Mustache_Cache
+{
+    private $logger = null;
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+    public function setLogger($logger = null)
+    {
+        if ($logger !== null && !($logger instanceof Mustache_Logger || is_a($logger, 'Psr\\Log\\LoggerInterface'))) {
+            throw new Mustache_Exception_InvalidArgumentException('Expected an instance of Mustache_Logger or Psr\\Log\\LoggerInterface.');
+        }
+        $this->logger = $logger;
+    }
+    protected function log($level, $message, array $context = array())
+    {
+        if (isset($this->logger)) {
+            $this->logger->log($level, $message, $context);
+        }
+    }
+}
+class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache
+{
+    private $baseDir;
+    private $fileMode;
+    public function __construct($baseDir, $fileMode = null)
+    {
+        $this->baseDir = $baseDir;
+        $this->fileMode = $fileMode;
+    }
+    public function load($key)
+    {
+        $fileName = $this->getCacheFilename($key);
+        if (!is_file($fileName)) {
+            return false;
+        }
+        require_once $fileName;
+        return true;
+    }
+    public function cache($key, $value)
+    {
+        $fileName = $this->getCacheFilename($key);
+        $this->log(
+            Mustache_Logger::DEBUG,
+            'Writing to template cache: "{fileName}"',
+            array('fileName' => $fileName)
+        );
+        $this->writeFile($fileName, $value);
+        $this->load($key);
+    }
+    protected function getCacheFilename($name)
+    {
+        return sprintf('%s/%s.php', $this->baseDir, $name);
+    }
+    private function buildDirectoryForFilename($fileName)
     {
         $dirName = dirname($fileName);
         if (!is_dir($dirName)) {
@@ -306,15 +388,20 @@ class Mustache_Engine
                 throw new Mustache_Exception_RuntimeException(sprintf('Failed to create cache directory "%s".', $dirName));
             }
         }
+        return $dirName;
+    }
+    private function writeFile($fileName, $value)
+    {
+        $dirName = $this->buildDirectoryForFilename($fileName);
         $this->log(
             Mustache_Logger::DEBUG,
             'Caching compiled template to "{fileName}"',
             array('fileName' => $fileName)
         );
         $tempFile = tempnam($dirName, basename($fileName));
-        if (false !== @file_put_contents($tempFile, $source)) {
+        if (false !== @file_put_contents($tempFile, $value)) {
             if (@rename($tempFile, $fileName)) {
-                $mode = isset($this->cacheFileMode) ? $this->cacheFileMode : (0666 & ~umask());
+                $mode = isset($this->fileMode) ? $this->fileMode : (0666 & ~umask());
                 @chmod($fileName, $mode);
                 return;
             }
@@ -326,11 +413,21 @@ class Mustache_Engine
         }
         throw new Mustache_Exception_RuntimeException(sprintf('Failed to write cache file "%s".', $fileName));
     }
-    private function log($level, $message, array $context = array())
+}
+class Mustache_Cache_NoopCache extends Mustache_Cache_AbstractCache
+{
+    public function load($key)
     {
-        if (isset($this->logger)) {
-            $this->logger->log($level, $message, $context);
-        }
+        return false;
+    }
+    public function cache($key, $value)
+    {
+        $this->log(
+            Mustache_Logger::WARNING,
+            'Template cache disabled, evaluating "{className}" class at runtime',
+            array('className' => $key)
+        );
+        eval('?>' . $value);
     }
 }
 class Mustache_Compiler
@@ -442,7 +539,8 @@ class Mustache_Compiler
     }
     const SECTION_CALL = '
         // %s section
-        $buffer .= $this->section%s($context, $indent, $context->%s(%s));
+        $value = $context->%s(%s);%s
+        $buffer .= $this->section%s($context, $indent, $value);
     ';
     const SECTION = '
         private function section%s(Mustache_Context $context, $indent, $value)
@@ -450,9 +548,14 @@ class Mustache_Compiler
             $buffer = \'\';
             if (%s) {
                 $source = %s;
-                $buffer .= $this->mustache
-                    ->loadLambda((string) call_user_func($value, $source, $this->lambdaHelper)%s)
-                    ->renderInternal($context);
+                $result = call_user_func($value, $source, $this->lambdaHelper);
+                if (strpos($result, \'{{\') === false) {
+                    $buffer .= $result;
+                } else {
+                    $buffer .= $this->mustache
+                        ->loadLambda((string) $result%s)
+                        ->renderInternal($context);
+                }
             } elseif (!empty($value)) {
                 $values = $this->isIterable($value) ? $value : array($value);
                 foreach ($values as $value) {
@@ -464,6 +567,10 @@ class Mustache_Compiler
         }';
     private function section($nodes, $id, $start, $end, $otag, $ctag, $level)
     {
+        $filters = '';
+        if (isset($this->pragmas[Mustache_Engine::PRAGMA_FILTERS])) {
+            list($id, $filters) = $this->getFilters($id, $level);
+        }
         $method   = $this->getFindMethod($id);
         $id       = var_export($id, true);
         $source   = var_export(substr($this->source, $start, $end - $start), true);
@@ -477,23 +584,27 @@ class Mustache_Compiler
         if (!isset($this->sections[$key])) {
             $this->sections[$key] = sprintf($this->prepare(self::SECTION), $key, $callable, $source, $delims, $this->walk($nodes, 2));
         }
-        return sprintf($this->prepare(self::SECTION_CALL, $level), $id, $key, $method, $id);
+        return sprintf($this->prepare(self::SECTION_CALL, $level), $id, $method, $id, $filters, $key);
     }
     const INVERTED_SECTION = '
         // %s inverted section
-        $value = $context->%s(%s);
+        $value = $context->%s(%s);%s
         if (empty($value)) {
             %s
         }';
     private function invertedSection($nodes, $id, $level)
     {
+        $filters = '';
+        if (isset($this->pragmas[Mustache_Engine::PRAGMA_FILTERS])) {
+            list($id, $filters) = $this->getFilters($id, $level);
+        }
         $method = $this->getFindMethod($id);
         $id     = var_export($id, true);
-        return sprintf($this->prepare(self::INVERTED_SECTION, $level), $id, $method, $id, $this->walk($nodes, $level));
+        return sprintf($this->prepare(self::INVERTED_SECTION, $level), $id, $method, $id, $filters, $this->walk($nodes, $level));
     }
     const PARTIAL = '
         if ($partial = $this->mustache->loadPartial(%s)) {
-            $buffer .= $partial->renderInternal($context, %s);
+            $buffer .= $partial->renderInternal($context, $indent . %s);
         }
     ';
     private function partial($id, $indent, $level)
@@ -642,11 +753,13 @@ class Mustache_Context
     private function findVariableInStack($id, array $stack)
     {
         for ($i = count($stack) - 1; $i >= 0; $i--) {
-            if (is_object($stack[$i]) && !$stack[$i] instanceof Closure) {
+            if (is_object($stack[$i]) && !($stack[$i] instanceof Closure)) {
                 if (method_exists($stack[$i], $id)) {
                     return $stack[$i]->$id();
                 } elseif (isset($stack[$i]->$id)) {
                     return $stack[$i]->$id;
+                } elseif ($stack[$i] instanceof ArrayAccess && isset($stack[$i][$id])) {
+                    return $stack[$i][$id];
                 }
             } elseif (is_array($stack[$i]) && array_key_exists($id, $stack[$i])) {
                 return $stack[$i][$id];
@@ -1395,7 +1508,7 @@ class Mustache_Tokenizer
     }
     private function flushBuffer()
     {
-        if (!empty($this->buffer)) {
+        if (strlen($this->buffer) > 0) {
             $this->tokens[] = array(
                 self::TYPE  => self::T_TEXT,
                 self::LINE  => $this->line,
