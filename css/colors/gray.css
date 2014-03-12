@@ -1,6 +1,6 @@
 /*Gray #555555 */
 
-.btn:focus, .subscribe-btn, .progress .progress-bar, #current:after, .tp-leftarrow.default:hover,.tp-rightarrow.default:hover, .nivo-prevNav:hover, .nivo-nextNav:hover, .contact-box:hover, #options li a.selected, .ch-info .ch-info-back {
+.btn:focus, .subscribe-btn, .progress .progress-bar, .accordionMod .panel-heading, #current:after, .tp-leftarrow.default:hover,.tp-rightarrow.default:hover, .nivo-prevNav:hover, .nivo-nextNav:hover, .contact-box:hover, #options li a.selected, .ch-info .ch-info-back {
     background: #555555;
 }
 
