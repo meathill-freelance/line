@@ -38,24 +38,27 @@
         </div>
         <!-- Left Section End -->
       </div>
-      <div class="divider"></div>
       <!-- 2 Column Testimonials -->
       <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-          <div class="accordionMod panel-group">
+          <div class="accordionMod panel-group" id="faqs">
             {{#faqs}}
             <div class="accordion-item panel panel-default">
-              <h4 class="accordion-toggle">{{title}}</h4>
-              <section class="accordion-inner panel-body">
-                {{{content}}}
-              </section>
+              <div class="panel-heading">
+                <h4 class="accordion-toggle" data-toggle="collapse" data-parent="#faqs" data-target="#answer-{{index}}">{{title}}</h4>
+              </div>
+              <div id="answer-{{index}}" class="panel-collapse collapse {{in}}">
+                <section class="accordion-inner panel-body">
+                  {{{content}}}
+                </section>
+              </div>
             </div>
             {{/faqs}}
           </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
           <div class="contact-box widget">
-            <h3>没找到您需要的答案？</h3>
+            <h3>没能找到答案？</h3>
             <i class="fa fa-envelope"></i>
 
             <p><a href="/contact">直接给我们留言吧。</a></p>

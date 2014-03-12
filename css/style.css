@@ -1780,7 +1780,7 @@ input:focus, textarea:focus {
     position: relative;
     cursor: pointer;
     margin: 0;
-    padding: 10px 45px;
+    padding: 10px 15px;
 }
 
 .accordion-body,.panel-heading {

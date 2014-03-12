@@ -17,6 +17,7 @@ $result = array(
 );
 $args = array('post_type' => 'faq', 'orderby' => 'ID', 'posts_per_page' => -1);
 $faqs = new WP_Query($args);
+$count = 0;
 while ($faqs->have_posts()) {
   $faqs->the_post();
   $title = the_title('', '', FALSE);
@@ -25,7 +26,10 @@ while ($faqs->have_posts()) {
   $result['faqs'][] = array(
     'title' => $title,
     'content' => $content,
+    'index' => $count,
+    'in' => $count === 0? 'in' : '',
   );
+  $count++;
 }
 
 require_once(dirname(__FILE__) . '/inc/mustache.php');
