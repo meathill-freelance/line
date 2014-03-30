@@ -1,0 +1,9 @@
+.flash-container {
+  background: #333;
+}
+#diy-flash,
+.diy-container {
+  height: 800px;
+  max-width: 1170px;
+  margin: 0 auto;
+}
