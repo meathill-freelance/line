@@ -9,7 +9,7 @@
  */
 
 require_once(dirname(__FILE__) . '/inc/mustache.php');
-$tpl = new Mustache_Engine();
+$tpl = new Mustache_Engine(array('cache' => '/var/tmp'));
 
 global $page, $paged;
 $pagenum = $page > 2 || $paged > 2 ? ' | ' . sprintf(__('第 %s 页'), max($paged, $page)) : '';
@@ -17,6 +17,7 @@ $home_url = esc_url(home_url('/'));
 $result = array(
   'theme_url' => $home_url,
   'title' => wp_title('|', FALSE, 'right') . get_bloginfo('name') . $pagenum,
+  'body-class' => join( ' ', get_body_class( $class ) ),
 );
 
 $template = dirname(__FILE__) . '/template/header.html';

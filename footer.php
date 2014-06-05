@@ -11,7 +11,9 @@
 require_once(dirname(__FILE__) . '/inc/mustache.php');
 $tpl = new Mustache_Engine();
 
-$result = array();
+$result = array(
+  'theme_url' => esc_url(home_url('/')),
+);
 // 公司新闻
 if (have_posts()) {
   $blog = array();
