@@ -36,6 +36,10 @@ if (have_posts()) {
 $template = dirname(__FILE__) . '/template/footer.html';
 $template = file_get_contents($template);
 $template = str_replace('"../', '"{{theme_url}}wp-content/themes/line/', $template);
+$html = $tpl->render($template, $result);
+$htmls = explode('<!-- wp & woo footer -->', $html);
 
-echo $tpl->render($template, $result);
+echo $htmls[0];
 wp_footer();
+woo_foot();
+echo $htmls[1];

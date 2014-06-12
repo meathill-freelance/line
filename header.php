@@ -23,5 +23,10 @@ $result = array(
 $template = dirname(__FILE__) . '/template/header.html';
 $template = file_get_contents($template);
 $template = str_replace('"../', '"{{theme_url}}wp-content/themes/line/', $template);
+$html = $tpl->render($template, $result);
+$htmls = explode('<!-- wp & woo headers -->', $html);
 
-echo $tpl->render($template, $result);
+echo $htmls[0];
+wp_head();
+woo_head();
+echo $htmls[1];

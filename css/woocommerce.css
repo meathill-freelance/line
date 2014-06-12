@@ -145,17 +145,19 @@ div.quantity input::-webkit-inner-spin-button {
 }
 div.quantity .plus,
 div.quantity .minus {
-  font-family: 'WebSymbolsRegular';
-  background: none;
+  background: #ff4800;
   border: none;
+  border-radius: 50%;
   font-size: 1.387em;
+  font-weight: bold;
   padding: 0;
-  color: #ff4800;
+  color: #FFF;
   -webkit-transition: all ease-in-out 0.2s;
   -moz-transition: all ease-in-out 0.2s;
   -ms-transition: all ease-in-out 0.2s;
   -o-transition: all ease-in-out 0.2s;
   transition: all ease-in-out 0.2s;
+  width: 24px;
 }
 div.quantity .plus:hover,
 div.quantity .minus:hover {
@@ -187,6 +189,9 @@ table div.quantity {
 .single-product .single_variation .price {
   display: block;
   margin-bottom: .618em;
+}
+.single_variation_wrap {
+  padding-bottom: 2em;
 }
 dl.variation dt,
 dl.variation dd {
@@ -401,6 +406,21 @@ a.reset_variations:before {
   margin-right: .618em;
   font-weight: normal;
   content: "*";
+}
+table.variations {
+  margin-bottom: 2.618em;
+}
+table.variations td {
+  padding: 1em;
+  vertical-align: top;
+  border-bottom: 1px solid #e8e4e3;
+}
+table.variations td.label {
+  display: table-cell;
+  color: #333;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: inherit;
 }
 table.variations tr:last-child td,
 table.variations tr:last-child th {

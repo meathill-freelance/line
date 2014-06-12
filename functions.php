@@ -45,3 +45,10 @@ function create_post_type() {
   );
 }
 add_action('init', 'create_post_type');
+
+// 把jquery放到最后
+if( !is_admin()){
+  wp_deregister_script('jquery');
+  wp_register_script('jquery', ("//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"), false, '2.1.1', true);
+  wp_enqueue_script('jquery');
+}
