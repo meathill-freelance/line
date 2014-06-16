@@ -7,3 +7,50 @@
   max-width: 1170px;
   margin: 0 auto;
 }
+
+.style-list {
+  padding: 20px 0;
+}
+.style-list .tab-content {
+  margin: 20px 0;
+}
+.style-list h4 {
+  color: #FFF;
+}
+.style-list label {
+  padding: 10px;
+  cursor: pointer;
+}
+.style-list label.active {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid #666;
+  border-radius: 4px;
+}
+.style-list label.disabled {
+  cursor: not-allowed;
+}
+.style-list label.disabled:after {
+  content: '\f05e';
+  font-family: 'FontAwesome';
+  font-size: 100px;
+  line-height: 100%;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-left: -43px;
+}
+.style-list label.disabled .fa-ban {
+  display: block;
+}
+.style-list label img {
+  border-radius: 4px;
+}
+.style-list label input {
+  display: none;
+}
+.style-list label span {
+  line-height: 120px;
+  width: 100%;
+  display: block;
+  text-align: center;
+}

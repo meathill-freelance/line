@@ -37,9 +37,11 @@ $template = dirname(__FILE__) . '/template/footer.html';
 $template = file_get_contents($template);
 $template = str_replace('"../', '"{{theme_url}}wp-content/themes/line/', $template);
 $html = $tpl->render($template, $result);
-$htmls = explode('<!-- wp & woo footer -->', $html);
+$htmls = explode('<!-- embed footer -->', $html);
 
 echo $htmls[0];
 wp_footer();
 woo_foot();
 echo $htmls[1];
+do_action('line_footer');
+echo $htmls[2];
