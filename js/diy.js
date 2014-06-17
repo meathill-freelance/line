@@ -11,7 +11,12 @@ $('.style-list')
       .siblings('.' + className).removeClass('active');
   })
   .on('submit', function (event) {
+    var cloth = [];
+    $('.tab-pane.active input:checked').each(function () {
+      cloth.push(this.value);
+    })
     var flashvars = {
+      cloth: cloth.join(',')
     };
     var params = {
       menu: "false",
