@@ -1,11 +1,6 @@
-.flash-container {
-  background: #333;
-}
-#diy-flash,
 .diy-container {
   height: 800px;
-  max-width: 1170px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .style-list {
@@ -14,20 +9,35 @@
 .style-list .tab-content {
   margin: 20px 0;
 }
-.style-list h4 {
-  color: #FFF;
-}
 .style-list label {
-  padding: 10px;
+  padding: 10px 10px 0;
   cursor: pointer;
 }
+.style-list label div {
+  line-height: 2em;
+}
 .style-list label.active {
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid #666;
+  background-color: #5cb85c;
+  border: 1px solid #3e8f3e;
   border-radius: 4px;
+}
+.style-list label.active div {
+  color: #FFF;
+}
+.style-list label.active:after {
+  content: '\f00c';
+  font-family: 'FontAwesome';
+  font-size: 40px;
+  line-height: 100%;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: #3e8f3e;
+  text-shadow: 0 0 2px #FFF;
 }
 .style-list label.disabled {
   cursor: not-allowed;
+  opacity: 0.6;
 }
 .style-list label.disabled:after {
   content: '\f05e';

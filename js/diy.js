@@ -23,7 +23,7 @@ $('.style-list')
       scale: "noScale",
       allowFullscreen: "true",
       allowScriptAccess: "always",
-      bgcolor: "333333",
+      bgcolor: "010101",
       wmode: "direct" // can cause issues with FP settings & webcam
     };
     var attributes = {
