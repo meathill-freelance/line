@@ -3,12 +3,22 @@
  */
 $('.style-list')
   .on('click', 'label', function (event) {
+    if (event.target.tagName.toLowerCase() === 'i') {
+      return;
+    }
     if ($(this).hasClass('disabled')) {
       event.preventDefault();
     }
     var className = /top/.test(this.className) ? 'top' : 'pants';
     $(this).addClass('active')
       .siblings('.' + className).removeClass('active');
+  })
+  .on('click', '.preview-button', function (event) {
+    $('#popup')
+      .modal('show')
+      .find('.modal-body').html($(event.currentTarget).siblings('img').clone());
+    event.stopPropagation();
+    event.preventDefault();
   })
   .on('submit', function (event) {
     var cloth = [];

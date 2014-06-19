@@ -1,3 +1,13 @@
+/**************************************
+ * general
+ *************************************/
+.alert-sm {
+  padding: 9px 15px;
+}
+
+/**************************************
+ * diy
+ *************************************/
 .diy-container {
   height: 800px;
   width: 100%;
@@ -16,12 +26,31 @@
 .style-list label div {
   line-height: 2em;
 }
+.style-list label .preview-button {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  width: 2em;
+  height: 2em;
+  padding: 0;
+  margin: 0;
+  line-height: 2em;
+  text-align: center;
+  cursor: pointer;
+}
+.style-list label .preview-button:hover {
+  background-color: #666;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  color: #FFF;
+}
 .style-list label.active {
   background-color: #5cb85c;
   border: 1px solid #3e8f3e;
   border-radius: 4px;
 }
-.style-list label.active div {
+.style-list label.active div,
+.style-list label.active i {
   color: #FFF;
 }
 .style-list label.active:after {
