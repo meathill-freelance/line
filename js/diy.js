@@ -50,3 +50,16 @@ $('.style-list')
     event.preventDefault();
     return false;
   });
+
+function backToForm() {
+  setTimeout(function () {
+    if (confirm('重新选择款式之后，您需要从头进行设计，确定么？')) {
+      $('#DIY').remove();
+      $('.diy-container')
+        .addClass('hide')
+        .html('<div id="diy-flash"></div>');
+      $('.style-list').show();
+    }
+  }, 10);
+
+}
