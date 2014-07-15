@@ -61,35 +61,43 @@ if( !is_admin()){
   wp_enqueue_script('jquery');
 }
 
-// 登录
-function line_login() {
-  if ($_POST['action'] == 'line_login') {
-    $credentials = array();
-    $result = array();
-    $credentials['user_login'] = $_POST['user_login'];
-    $credentials['user_password'] = $_POST['user_password'];
-    $credentials['remember'] =  $_POST['remember'];
-    if ($credentials['user_login'] == '') {
-      $result['code'] = 1;
-      $result['msg'] = '用户名不能为空';
-    } elseif($credentials['user_password']=='') {
-      $result['code'] = 2;
-      $result['msg'] = '密码不能为空';
-    } elseif($credentials['remember']=='') {
-      $result['code'] = 3;
-      $result['msg'] = '致命错误';
-    } else {
-      $user = wp_signon($credentials, false);//array,是否加密cookie
-      if (is_wp_error($user)) {
-        $result['code'] = 4;
-        $result['msg'] = $user->get_error_message();
-      } else {
-        $result['code'] = 0;
-        $result['msg'] = '登录成功';
-      }
-    }
-    header("Content-Type: application/json");
-    echo json_encode($result);
-    exit;
-  }
+function get_hello3_ajax() {
+  if( $_POST[ 'count' ] )
+    echo (int)$_POST[ 'count' ] . ' ';
+  ?>Hello World!<?php
+  die();
 }
+add_action( 'wp_ajax_gethello3', 'get_hello3_ajax' );
+
+// 保存diy结果
+function line_save() {
+  header('Content-type:application/json; charset: UTF-8');
+  echo json_encode(array(
+    'msg' => 'line save',
+  ));
+  exit();
+}
+add_action('wp_ajax_nopriv_line_save', "line_save");
+add_action('wp_ajax_line_save', "line_save");
+
+// 保存壁纸
+function line_create_wallpaper() {
+  header('Content-type:application/json; charset: UTF-8');
+  echo json_encode(array(
+    'msg' => 'line wallpaper',
+  ));
+  exit();
+}
+add_action('wp_ajax_nopriv_line_create_wallpaper', "line_create_wallpaper");
+add_action('wp_ajax_line_create_wallpaper', "line_create_wallpaper");
+
+// 添加到购物车并结算
+function line_buy() {
+  header('Content-type:application/json; charset: UTF-8');
+  echo json_encode(array(
+    'msg' => 'line buy',
+  ));
+  exit();
+}
+add_action('wp_ajax_nopriv_line_buy', "line_buy");
+add_action('wp_ajax_line_buy', "line_buy");

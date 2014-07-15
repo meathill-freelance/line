@@ -11,26 +11,6 @@
  */
 get_header();
 
-// 保存diy结果
-function line_save() {
-  header('Content-type:application/json; charset: UTF-8');
-  echo json_encode(array(
-    'msg' => 'line save',
-  ));
-}
-add_action('wp_ajax_nopriv_get_my_option', "line_save");
-add_action('wp_ajax_get_my_option', "line_save");
-
-// 保存壁纸
-function line_create_wallpaper() {
-  header('Content-type:application/json; charset: UTF-8');
-  echo json_encode(array(
-    'msg' => 'line wallpaper',
-  ));
-}
-add_action('wp_ajax_nopriv_get_my_option', "line_create_wallpaper");
-add_action('wp_ajax_get_my_option', "line_create_wallpaper");
-
 // 将定制界面的js加入
 function add_diy_js() {
   echo '<script src="//cdn.staticfile.org/swfobject/2.2/swfobject.js"></script>';
